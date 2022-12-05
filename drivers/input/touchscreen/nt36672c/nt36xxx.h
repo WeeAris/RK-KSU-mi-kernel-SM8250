@@ -230,8 +230,7 @@ struct nvt_ts_data {
 	bool palm_sensor_changed;
 	bool palm_sensor_switch;
 	uint8_t debug_flag;
-	struct pm_qos_request pm_touch_req;
-	struct pm_qos_request pm_spi_req;
+	struct pm_qos_request pm_qos_req;
 };
 
 #if NVT_TOUCH_PROC
