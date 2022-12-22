@@ -24,6 +24,7 @@ module_param(auto_kprofiles, bool, 0664);
 module_param(mode, uint, 0664);
 
 DEFINE_MUTEX(kplock);
+EXPORT_SYMBOL(kprofiles_set_mode_rollback);
 
 inline void kprofiles_set_mode_rollback(unsigned int level, unsigned int duration_ms)
 {
@@ -52,6 +53,7 @@ inline void kprofiles_set_mode(unsigned int level)
 	if (level && auto_kprofiles)
 		mode = level;
 }
+EXPORT_SYMBOL(kprofiles_set_mode);
 
 #if defined(CONFIG_AUTO_KPROFILES_MSM_DRM) || defined(CONFIG_AUTO_KPROFILES_FB)
 static inline int common_notifier_callback(struct notifier_block *self,
@@ -124,6 +126,7 @@ inline unsigned int active_mode(void)
   pr_info("Invalid value passed, falling back to level 0\n");
   return 0;
 }
+EXPORT_SYMBOL(active_mode);
 
 #if defined(CONFIG_AUTO_KPROFILES_MSM_DRM) || defined(CONFIG_AUTO_KPROFILES_FB)
 static struct notifier_block common_notifier_block = {
