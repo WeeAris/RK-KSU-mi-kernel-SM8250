@@ -51,9 +51,7 @@ static void devfreq_max_unboost(struct work_struct *work);
 
 static struct df_boost_drv df_boost_drv_g __read_mostly = {
 	BOOST_DEV_INIT(df_boost_drv_g, DEVFREQ_MSM_CPUBW,
-		       CONFIG_DEVFREQ_MSM_CPUBW_BOOST_FREQ),
-	BOOST_DEV_INIT(df_boost_drv_g, DEVFREQ_MSM_LLCCBW,
-		       CONFIG_DEVFREQ_MSM_LLCCBW_BOOST_FREQ)
+		       CONFIG_DEVFREQ_MSM_CPUBW_BOOST_FREQ)
 };
 
 static void __devfreq_boost_kick(struct boost_dev *b)
@@ -304,8 +302,8 @@ static int __init devfreq_boost_init(void)
 	for (i = 0; i < DEVFREQ_MAX; i++) {
 		struct boost_dev *b = d->devices + i;
 
-		thread[i] = kthread_run_perf_critical(cpu_prime_mask, devfreq_boost_thread,
-						      b, "devfreq_boostd/%d", i);
+		thread[i] = kthread_run(devfreq_boost_thread, b,
+					"devfreq_boostd/%d", i);
 		if (IS_ERR(thread[i])) {
 			ret = PTR_ERR(thread[i]);
 			pr_err("Failed to create kthread, err: %d\n", ret);
