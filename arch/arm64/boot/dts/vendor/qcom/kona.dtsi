@@ -347,8 +347,7 @@
 	};
 
 	chosen {
-		bootargs = "rcupdate.rcu_normal_after_boot=1 quiet noirqdebug nodebugmon rcu_nocbs=0-7 kpti=off nosoftlockup mce=ignore_ce cgroup_disable=pressure";
-		rng-seed = <0x12345678>;
+		bootargs = "rcupdate.rcu_expedited=1 rcu_nocbs=0-7 kpti=off cgroup_disable=pressure";
 	};
 
 	firmware: firmware {
@@ -698,6 +697,7 @@
 				 <0 1 IRQ_TYPE_LEVEL_HIGH>;
 		qcom,bark-time = <11000>;
 		qcom,pet-time = <9360>;
+		qcom,wakeup-enable;
 		qcom,ipi-ping;
 	};
 
